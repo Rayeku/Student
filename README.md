@@ -1,6 +1,7 @@
 # 42 Student – Common Core
 
 This repository contains some of my projects from the **42 Common Core** curriculum.
+
 There may be mistakes — my projects are far from perfect. 
 But they reflect my learning and progress at 42 Paris.
 
