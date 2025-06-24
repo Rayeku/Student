@@ -1,0 +1,23 @@
+# custom files
+custom/
+
+# temp files directories
+cache/
+log/
+*.swp
+.DS_Store
+
+# editor configs
+.vscode
+.idea
+
+
+objects
+Form
+Bureaucrat
+Mommy
+.o
+Form
+Serialization
+Identify
+.vscode
