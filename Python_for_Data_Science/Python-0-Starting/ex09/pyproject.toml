@@ -1,0 +1,13 @@
+[project]
+name = "ft_package"
+version = "1"
+description = "A sample test package"
+license = { text = "MIT" }
+authors = [
+    { name="python", email="python@42.fr" }
+]
+readme = "README.md"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
