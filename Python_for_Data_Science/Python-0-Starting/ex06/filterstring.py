@@ -17,7 +17,7 @@ def main():
     Second argument must be a number.
     """
     try:
-        if (len(sys.argv) != 3):
+        if len(sys.argv) != 3:
             raise AssertionError("the arguments are bad")
         av1 = sys.argv[1].split()
         av2 = int(sys.argv[2])

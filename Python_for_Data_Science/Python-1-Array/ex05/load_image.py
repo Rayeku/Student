@@ -1,13 +1,13 @@
-import numpy as np
-from array import array
+from typing import Optional
 from PIL import Image
+import numpy as np
 
 
-def ft_load(path: str) -> array:
+def ft_load(path: str) -> Optional[np.ndarray]:
     """
-    Load an image and return its pixels as an array.
+    Load an image and return its pixels as a 3D array.
 
-    Returns a array in RGB format.
+    Returns an array in RGB format.
     Returns None if there is any problem with the file.
 
     :param path: path to the image file
@@ -17,12 +17,8 @@ def ft_load(path: str) -> array:
         image = Image.open(path, "r")
         image = image.convert("RGB")
     except Exception:
-        print("Error file")
+        print("Error: error file")
         return None
-    rgb = 3
-    width, height = image.size
-    pixel_values = list(image.getdata())
-    arr = np.array(pixel_values)
-    arr = arr.reshape((height, width, rgb))
+    arr = np.array(image)
     print(f"The shape of image is: {arr.shape}")
     return arr

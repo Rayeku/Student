@@ -20,10 +20,12 @@ def main():
     as an argument in its Morse code form.
     """
     try:
-        if (len(sys.argv) != 2 or not sys.argv[1].isalnum() and not " "):
+        if len(sys.argv) != 2 or not sys.argv[1]:
+            raise AssertionError("the arguments are bad")
+        elif any(not (c.isalnum() or c == " ") for c in sys.argv[1]):
             raise AssertionError("the arguments are bad")
         s = sys.argv[1]
-        if s is not str:
+        if isinstance(s, str) is False:
             raise AssertionError("the arguments are bad")
         morsed_code = ""
         for char in s:

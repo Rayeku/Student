@@ -43,7 +43,7 @@ def main():
     except AssertionError as error:
         print(f"AssertionError: {error}")
         sys.exit(1)
-    if (len(sys.argv) == 1):
+    if len(sys.argv) == 1:
         try:
             user_input = input("What is the text to count?\n")
         except EOFError:

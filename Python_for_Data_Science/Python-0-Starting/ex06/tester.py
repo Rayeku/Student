@@ -6,7 +6,7 @@ def is_even(num):
 
 
 def is_higher_than_zero(num):
-    if (num > 10):
+    if num > 10:
         return True
     else:
         return False
