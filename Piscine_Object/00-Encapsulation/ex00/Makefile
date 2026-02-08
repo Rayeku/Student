@@ -6,7 +6,7 @@
 #    By: rayeku <abougrai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/07 07:02:09 by abougrai          #+#    #+#              #
-#    Updated: 2026/02/08 21:52:44 by rayeku           ###   ########.fr        #
+#    Updated: 2026/02/08 23:18:37 by rayeku           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,12 +47,12 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	@./$(NAME) database
+	@./$(NAME)
 
 runv: $(NAME)
-	@valgrind ./$(NAME) database
+	@valgrind ./$(NAME)
 
 full: $(NAME)
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) base
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 .PHONY: all clean fclean re run runv full

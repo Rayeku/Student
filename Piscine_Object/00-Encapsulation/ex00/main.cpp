@@ -6,7 +6,7 @@
 /*   By: rayeku <abougrai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:21:24 by rayeku            #+#    #+#             */
-/*   Updated: 2026/02/08 23:11:34 by rayeku           ###   ########.fr       */
+/*   Updated: 2026/02/08 23:14:43 by rayeku           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int main() {
 		std::cerr << BOLD "Error : " << RESET;
 		std::cerr << e.what() << '\n';
 	}
-
 	return (0);
 }
