@@ -1,0 +1,11 @@
+- Create a contener Vector2 which contain Float X and Float Y
+- Create class Graph 
+    - Size in Vector2 representing size of graph representation
+    - list of Vector2 represents different points of the Graph
+
+
+•be able to explain the decision you made over encapsulation.
+•Vector2 must contain an attribute representing x and y.
+•User must be allow to add a new Vector2 onto the Graph
+•User must be able to output the content of the graph
+    onto the console in a graph-like form
