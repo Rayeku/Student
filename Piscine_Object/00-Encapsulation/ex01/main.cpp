@@ -6,7 +6,7 @@
 /*   By: rayeku <abougrai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:21:24 by rayeku            #+#    #+#             */
-/*   Updated: 2026/02/10 14:15:02 by rayeku           ###   ########.fr       */
+/*   Updated: 2026/02/11 17:59:12 by rayeku           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main() {
     try
     {
-        Vector2 size = Vector2(10.f, 5.f);
+        Vector2 size = Vector2(9.f, 5.f);
         Graph graph = Graph(size);
 
         Vector2 point1 = Vector2(0.f, 0.f);

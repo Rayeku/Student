@@ -6,7 +6,7 @@
 /*   By: rayeku <abougrai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 02:55:44 by rayeku            #+#    #+#             */
-/*   Updated: 2026/02/10 14:15:25 by rayeku           ###   ########.fr       */
+/*   Updated: 2026/02/11 17:59:56 by rayeku           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ class Vector2
 {
 	private:
         std::pair<float, float> _point;
+		Vector2();
         
     public:
-		Vector2();
         Vector2(float x, float y);
         float getX(void) const;
         float getY(void) const;  
