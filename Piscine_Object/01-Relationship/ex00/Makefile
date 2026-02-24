@@ -11,13 +11,13 @@
 # **************************************************************************** #
 
 NAME 			=  Relationship
-SRCS			= 	main.cpp Worker.cpp Shovel.cpp \
+SRCS			= 	main.cpp Statistic.cpp Position.cpp Worker.cpp Shovel.cpp Hammer.cpp Tool.cpp \
 
 OBJS			= $(SRCS:%.cpp=$(OBJDIR)/%.o)
-HEADER			=	 Worker.hpp Shovel.hpp \
+HEADER			=	 Statistic.hpp Position.hpp Worker.hpp Shovel.hpp Hammer.hpp Tool.hpp \
 
 CC				= c++
-CPPFLAGS	 	= -Wall -Wextra -Werror -std=c++98 -pedantic
+CPPFLAGS	 	= -Wall -Wextra -Werror -std=c++98
 RM				= rm -rf
 
 OBJDIR 			= objects

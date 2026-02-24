@@ -23,6 +23,7 @@
 class Account
 {
 	private:
+		Account();
 		size_t _id;
 		double _value;
 

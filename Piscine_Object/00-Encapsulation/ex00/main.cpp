@@ -39,7 +39,7 @@ int main() {
 
 		std::cout << bank << std::endl;
 		
-		bank.depositCustomer(ID0, 200);
+		bank.depositCustomer(ID0, 100);
 		bank.loanCustomer(ID1, 20);
 		bank.withdrawalCustomer(ID4, 400000);
 		
@@ -48,6 +48,7 @@ int main() {
 	catch (const std::exception &e) {
 		std::cerr << BOLD "Error : " << RESET;
 		std::cerr << e.what() << '\n';
+		return (1);
 	}
 	return (0);
 }
