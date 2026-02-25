@@ -9,6 +9,7 @@
 # include "Position.hpp"
 # include "Statistic.hpp"
 # include "Tool.hpp"
+# include "Workshop.hpp"
 
 // Typeface(s)
 # define BOLD "\033[1m"
@@ -28,6 +29,7 @@
 using namespace std;
 
 class Tool;
+class Workshop;
 
 class Worker
 {
@@ -36,18 +38,21 @@ class Worker
         Position _coordonnee;
         Statistic _stat;
         std::vector<Tool *> _tool;
+        int _register;
+        void work();
 
     public:
         Worker();
         Worker(std::string name, Position coord, Statistic stat, Tool *tool);
+        ~Worker();
         void setTool(Tool *tool);
         void removeTool(Tool *tool);
         void useTool(Tool *tool);
         std::string getName(void);
         Tool* getTool(std::string type);
-        ~Worker();
 
         friend class Tool;
+        friend class Workshop;
 };
 
 #endif

@@ -6,15 +6,15 @@
 #    By: rayeku <abougrai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/07 07:02:09 by abougrai          #+#    #+#              #
-#    Updated: 2026/02/10 14:53:02 by rayeku           ###   ########.fr        #
+#    Updated: 2026/02/25 14:11:26 by rayeku           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			=  Relationship
-SRCS			= 	main.cpp Statistic.cpp Position.cpp Worker.cpp Shovel.cpp Hammer.cpp Tool.cpp \
+SRCS			= 	main.cpp Statistic.cpp Position.cpp Worker.cpp Shovel.cpp Hammer.cpp Tool.cpp Workshop.cpp \
 
 OBJS			= $(SRCS:%.cpp=$(OBJDIR)/%.o)
-HEADER			=	 Statistic.hpp Position.hpp Worker.hpp Shovel.hpp Hammer.hpp Tool.hpp \
+HEADER			=	 Statistic.hpp Position.hpp Worker.hpp Shovel.hpp Hammer.hpp Tool.hpp Workshop.hpp \
 
 CC				= c++
 CPPFLAGS	 	= -Wall -Wextra -Werror -std=c++98

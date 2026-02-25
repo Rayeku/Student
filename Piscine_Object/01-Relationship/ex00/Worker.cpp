@@ -1,10 +1,15 @@
 #include "Worker.hpp"
 
-Worker::Worker() : _name("Aurel"), _coordonnee(), _stat(), _tool() {
+Worker::Worker() : _name("Aurel"), _coordonnee(), _stat(), _tool() , _register(0) {
     std::cout << BOLD ORANGE << "Default Worker Constructor Called" << RESET << std::endl;
 }
-Worker::Worker(std::string name, Position coord, Statistic stat, Tool *tool) : _name(name), _coordonnee(coord), _stat(stat), _tool() {
+Worker::Worker(std::string name, Position coord, Statistic stat, Tool *tool) : _name(name), _coordonnee(coord), _stat(stat), _tool(), _register(0) {
     std::cout << BOLD ORANGE << "Assignement Worker Constructor Called" << RESET << std::endl;
+    if (tool == NULL) {
+        std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his tool" << RESET << std::endl;
+        return;
+    }
+
     if (tool != NULL && tool->_numberOfUses > 0) {
         this->_tool.push_back(tool);
         tool->_owner = this;
@@ -15,10 +20,21 @@ Worker::Worker(std::string name, Position coord, Statistic stat, Tool *tool) : _
         return; 
     }
     else
-        std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his " << tool->_type << RESET << std::endl;
+        std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his tool" << RESET << std::endl;
+        // std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his " << tool->_type << RESET << std::endl;
+}
+
+Worker::~Worker() {
+    std::cout << BOLD ORANGE << "Default Worker Destructor Called" << RESET << std::endl;
+    this->_tool.clear();
 }
 
 void Worker::setTool(Tool *tool) {
+    if (tool == NULL) {
+        std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his tool" << RESET << std::endl;
+        return;
+    }
+
     if (tool->_numberOfUses <= 0) {
         std::cout << BOLD RED "ERROR : " << "Current " << tool->_type << " is unusable" << RESET << std::endl;
         return; 
@@ -45,7 +61,7 @@ void Worker::setTool(Tool *tool) {
         std::cout << BOLD ITALIC GREEN << this->_name << " has one more " << tool->getType() << RESET << std::endl;
         return;
     }
-    std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his tool" << RESET << std::endl; 
+    std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his tool" << RESET << std::endl;
 }
 
 void Worker::removeTool(Tool *tool) {
@@ -58,16 +74,22 @@ void Worker::removeTool(Tool *tool) {
             }
         }
     }
-    std::cout << BOLD RED "ERROR : " << "Something went wrong, couldn't remove a specific " << tool->getType() << " from " << this->_name << RESET << std::endl;
+    // std::cout << BOLD RED "ERROR : " << "Something went wrong, couldn't remove a specific " << tool->getType() << " from " << this->_name << RESET << std::endl;
+    std::cout << BOLD RED "ERROR : " << "Something went wrong, couldn't remove a specific tool from " << this->_name << RESET << std::endl;
 }
 
 void Worker::useTool(Tool *tool) {
-    if (tool->_owner != this)
-        std::cout << BOLD RED "ERROR : " << this->_name << " can't use this " << tool->_type << RESET << std::endl;
-    else if(tool->_owner == this)
-        tool->use();
-    else
-        std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't use the tool" << RESET << std::endl;
+    if (tool != NULL) {
+        if (tool->_owner != this)
+            std::cout << BOLD RED "ERROR : " << this->_name << " can't use this " << tool->_type << RESET << std::endl;
+        else if(tool->_owner == this)
+            tool->use();
+        else {
+            std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't use the tool" << RESET << std::endl;
+            return;
+        }
+    }
+    std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't use the tool" << RESET << std::endl;
 }
 
 std::string Worker::getName(void) {
@@ -83,7 +105,10 @@ Tool* Worker::getTool(std::string type) {
     return NULL;
 }
 
-Worker::~Worker() {
-    std::cout << BOLD ORANGE << "Default Worker Destructor Called" << RESET << std::endl;
-    this->_tool.clear();
+void Worker::work() {
+    if (this->_register > 0)
+        std::cout << BOLD GREEN << this->_name << " is working" << RESET << std::endl;
+    else
+        std::cout << BOLD RED << this->_name << " isn't register in any workshop" << RESET << std::endl;
 }
+
