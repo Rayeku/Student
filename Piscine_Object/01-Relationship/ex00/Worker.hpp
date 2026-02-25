@@ -5,6 +5,7 @@
 # include <iostream>
 # include <string>
 # include <vector>
+# include <ostream>
 # include "Position.hpp"
 # include "Statistic.hpp"
 # include "Tool.hpp"
@@ -43,6 +44,7 @@ class Worker
         void removeTool(Tool *tool);
         void useTool(Tool *tool);
         std::string getName(void);
+        Tool* getTool(std::string type);
         ~Worker();
 
         friend class Tool;

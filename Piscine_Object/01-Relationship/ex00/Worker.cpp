@@ -11,22 +11,32 @@ Worker::Worker(std::string name, Position coord, Statistic stat, Tool *tool) : _
         std::cout << BOLD ITALIC GREEN << this->_name << " has one more " << tool->getType() << RESET << std::endl;
     }
     else if (tool->_numberOfUses < 0) {
-        std::cout << BOLD RED << "Current " << tool->_type << " is unusable" << RESET;
+        std::cout << BOLD RED "ERROR : " << "Current " << tool->_type << " is unusable" << RESET;
         return; 
     }
     else
-        std::cout << BOLD RED << "Something went wrong " << this->_name << " couldn't get his " << tool->_type << RESET << std::endl;
+        std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " couldn't get his " << tool->_type << RESET << std::endl;
 }
 
 void Worker::setTool(Tool *tool) {
-    if (tool->_numberOfUses < 0) {
-        std::cout << BOLD RED << "Current " << tool->_type << " is unusable" << RESET;
+    if (tool->_numberOfUses <= 0) {
+        std::cout << BOLD RED "ERROR : " << "Current " << tool->_type << " is unusable" << RESET << std::endl;
         return; 
     }
+
+    if (tool != NULL && tool->getOwner() != this && tool->getOwner() != NULL)
+        for (std::vector<Tool *>::iterator it = tool->_owner->_tool.begin();it != tool->_owner->_tool.end(); it++) {
+            if (*it == tool) {
+                tool->_owner->_tool.erase(it);
+                std::cout << BOLD RED ITALIC << tool->_owner->_name << " got a " << tool->getType() << " removed" << RESET << endl;
+                break;
+            }
+        }
+        
     if (tool != NULL) {
         for (std::vector<Tool *>::iterator it = this->_tool.begin();it != this->_tool.end(); it++) {
             if (*it == tool) {
-                std::cout << BOLD RED << this->_name << " already have this specific " << tool->getType() << RESET << endl;
+                std::cout << BOLD RED "ERROR : " << this->_name << " already have this specific " << tool->getType() << RESET << endl;
                 return;
             }
         }
@@ -64,6 +74,14 @@ std::string Worker::getName(void) {
     return this->_name;
 }
 
+Tool* Worker::getTool(std::string type) {
+    for (std::vector<Tool *>::iterator it = this->_tool.begin();it != this->_tool.end(); it++) {
+        if ((*it)->getType() == type)
+            return ((*it));
+        }
+    std::cout << BOLD RED "ERROR : " << "Something went wrong " << this->_name << " do not have any " << type << " tool" << RESET << std::endl;
+    return NULL;
+}
 
 Worker::~Worker() {
     std::cout << BOLD ORANGE << "Default Worker Destructor Called" << RESET << std::endl;

@@ -7,11 +7,11 @@
 class Shovel : public Tool
 {
     private:
+        void use(void);
 
     public:
         Shovel();
         ~Shovel();
-        void use(void);
 };
 
 #endif

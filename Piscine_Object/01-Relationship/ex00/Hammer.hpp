@@ -7,11 +7,11 @@
 class Hammer : public Tool
 {
     private:
+        void use(void);
 
     public:
         Hammer();
         ~Hammer();
-        void use(void);
 };
 
 #endif
