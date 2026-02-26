@@ -1,0 +1,39 @@
+- Classes repres by rectangular boxes
+    - Name
+    - attributes
+    - methods
+- Relationships repres by arrows
+    - Inheritance
+        - Solid line with arrow pointing to the parent
+    - Implementation
+        - Dotted line with arrow pointing to the interface
+            (Indicates that the class implements the methods defined in the interface)
+    - Aggregation
+        - Open diamond with arrow pointing to the containing class
+    - Composition 
+        - Solid diamond with arrow pointing to the containing class
+- Downard repres so Parent is on the top of the diagram
+    (arrow pointing upside)
+
+LinkablePart
+void execute(float p_pression)
+
+Wheel
+void executeRotation(float p_force)
+
+Geqr
+int demultiplier ("stores the demultiplier of a gear ")
+
+GearLever inherits from Singleton<GearLever>
+array Gear
+int level
+void change ();
+Gear *activeGear();
+
+Transmission
+std::vector<Wheel *>
+void activate(float p_force);
+
+Crankshaft
+Transmission *object
+void receive
