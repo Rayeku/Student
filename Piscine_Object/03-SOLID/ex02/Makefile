@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 			=  Divide_and_conquer
-SRCS			= 	main.cpp Account.cpp Bank.cpp \
+NAME 			=  soLid
+SRCS			= 	main.cpp \
 
 OBJS			= $(SRCS:%.cpp=$(OBJDIR)/%.o)
-HEADER			=	 Account.hpp Bank.hpp \
+HEADER			=	Car.hpp \
 
 CC				= c++
 CPPFLAGS	 	= -Wall -Wextra -Werror -std=c++98 -pedantic
@@ -30,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(ORANGE)$@ $(MAGENTA)is perfectly compiled$(RESET)"
+	@printf "$(ORANGE)$@ $(MAGENTA)is perfectly compiled$(RESET)\n"
 
 $(OBJDIR)/%.o: %.cpp $(HEADER)
 	@mkdir -p $(dir $@)
@@ -38,11 +38,11 @@ $(OBJDIR)/%.o: %.cpp $(HEADER)
 
 clean:
 	@$(RM) $(OBJS) $(OBJDIR)
-	@echo "$(RED)Boom Booom Boooom $(OBJDIR)$(RESET)"
+	@printf "$(RED)Boom Booom Boooom $(OBJDIR)$(RESET)\n"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "$(RED)Boom Booom Boooom $(NAME)$(RESET)"
+	@printf "$(RED)Boom Booom Boooom $(NAME)$(RESET)\n"
 
 re: fclean all
 

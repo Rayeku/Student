@@ -30,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(ORANGE)$@ $(MAGENTA)is perfectly compiled$(RESET)"
+	@printf "$(ORANGE)$@ $(MAGENTA)is perfectly compiled$(RESET)\n"
 
 $(OBJDIR)/%.o: %.cpp $(HEADER)
 	@mkdir -p $(dir $@)
@@ -38,11 +38,11 @@ $(OBJDIR)/%.o: %.cpp $(HEADER)
 
 clean:
 	@$(RM) $(OBJS) $(OBJDIR)
-	@echo "$(RED)Boom Booom Boooom $(OBJDIR)$(RESET)"
+	@printf "$(RED)Boom Booom Boooom $(OBJDIR)$(RESET)\n"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "$(RED)Boom Booom Boooom $(NAME)$(RESET)"
+	@printf "$(RED)Boom Booom Boooom $(NAME)$(RESET)\n"
 
 re: fclean all
 

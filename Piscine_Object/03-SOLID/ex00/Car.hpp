@@ -1,9 +1,29 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
 #ifndef CAR_HPP
 # define CAR_HPP
+
+// Include(s)
+# include <iostream>
+# include <string>
+
+// Typeface(s)
+# define BOLD "\033[1m"
+# define ITALIC "\033[3m"
+
+// Color(s)
+# define RED "\033[31m"
+# define RESET "\033[0m"
+# define CYAN "\033[36m"
+# define GREEN "\033[32m"
+# define BROWN "\033[38;5;94m"
+# define ORANGE "\033[38;5;202m"
+# define PURPLE "\033[38;5;175m"
+
+# define LIGHTYELLOW "\033[38;5;229m"
+# define YELLOW      "\033[38;5;220m"
+# define DARKORANGE  "\033[38;5;166m"
+# define DARKRED     "\033[38;5;88m"
+
+# define BRAKE_FORCE "force applied on brakes"
 
 using namespace std;
 
@@ -11,11 +31,12 @@ using namespace std;
 class Car
 {
     private:
-        bool _stop;
+        bool _running;
         unsigned int _speed;
         unsigned int _speedLimit;
         int _gearLevel;
-        int _angle;
+        unsigned int _wheelAngle;
+        unsigned int _maxWheelAngle;
     
     public:
         Car();
@@ -34,130 +55,184 @@ class Car
         // Puts the transmission in reverse gear
         void reverse();
         // Turns the wheels by a specified angle
-        void turn_wheel(int angle);
+        void turn_wheel(unsigned int angle);
         // Returns the wheels to a straight-ahead position
         void straighten_wheels();
         // Applies a specified force to the brakes
-        void apply_force_on_brakes(int force);
+        void apply_force_on_brakes(unsigned int force);
         // Applies the brakes with maximum force for an emergency stop
         void apply_emergency_brakes();
+        // Checks is the car engine is running, returns false if not, true otherwise 
+        bool check_engine();
 };
 
 Car::Car() { 
-    _stop = true;
+    _running = false;
     _speed = 0;
     _speedLimit = 180;
     _gearLevel = 0;
+    _wheelAngle = 0;
+    _maxWheelAngle = 45;
 }
 
 Car::~Car() {}
 
 void Car::start() {
-    if (_stop == false) {
-        cout << "Car engine is already running" << endl;
+    if (_running == true) {
+        cout << RED ITALIC << "Car engine is already running" << RESET << endl;
         return;
     }
-    _stop = false;
-    cout << "Car engine is running" << endl;
+    _running = true;
+    cout << BOLD GREEN << "Car engine is running" << RESET << endl;
 }
 
 void Car::stop() {
-    if (_stop == true) {
-        cout << "Car engine is not running" << endl;
+    if (!check_engine())
+        return;
+    else if (_speed != 0) {
+        cout << RED ITALIC << "lower the car's speed at 0 km/h before shuting down" << RESET << endl;
         return;
     }
-    _stop = true;
-    cout << "Car engine has been stopped" << endl;
+    _running = false;
+    _wheelAngle = 0;
+    _gearLevel = 0;
+    cout << BOLD RED << "Car engine has stopped" << RESET << endl;
 }
 
 void Car::accelerate(unsigned int speed) {
-    if (speed > _speedLimit || _speed + speed > _speedLimit)
-    {
-        cout << "Car speed limit cannot pass " << _speedLimit << "kmh/h" << endl;
-        _speed = _speedLimit;
+    if (!check_engine())
         return;
+    if (_gearLevel == 0) {
+        cout << RED ITALIC << "Shift gear up at least once before accelerate" << RESET << endl;
     }
-    _speed+= speed;
-    cout << "Current car speed : " << _speed << "kmh/h" << endl;
-}
+    if (speed > _speedLimit || _speed + speed > _speedLimit) {
+        cout << RED ITALIC << "Car speed limit cannot pass " << _speedLimit << " kmh/h" << RESET << endl;
+        _speed = _speedLimit;
+    }
+    else
+        _speed+= speed;
+    cout << "Car's speed increased to : " << GREEN << _speed << RESET << " kmh/h" << endl;
+        if (speed >= _speedLimit ) {
+            if (_gearLevel != -1)
+                _gearLevel = 5;
+            cout << "Car's current gear level : " << _gearLevel << endl;
+        }
+    }
 
 void Car::shift_gears_up() {
-    if (_gearLevel == 5) {
-        cout << "Cannot shift up past level 5" << endl;
+    if (!check_engine())
+        return; 
+    if (_gearLevel < 0) {
+        cout << "Lower the car's speed at 0 before gear shift up" << endl;
+        return;
+    }
+    else if (_gearLevel >= 5) {
+        cout << RED ITALIC << "Cannot shift up past level 5" << RESET << endl;
         return;
     }
     int previousLevel = _gearLevel++;
-    cout << "Car's gear shiftup from :" << previousLevel << " to : " << _gearLevel << endl;
+    cout << "Car's gear shiftup from : " << previousLevel << " to " << _gearLevel << endl;
     return;
 }
 
 void Car::shift_gears_down() {
-    if (_gearLevel == 0) {
-        cout << "Cannot Shift down past level 0" << endl;
+    if (!check_engine())
+        return; 
+    if (_gearLevel <= 0) {
+        cout << RED ITALIC << "Cannot shift down past level 0" << RESET << endl;
         return;
     }
     int previousLevel = _gearLevel--;
-    cout << "Car's gear down from :" << previousLevel << " to : " << _gearLevel << endl;
+    cout << "Car's gear down from : " << previousLevel << " to " << _gearLevel << endl;
     return;
 }
 
 void Car::reverse() {
-    if (_speed != 0)
-    {
-        cout << "Put the speed car at 0 before reverse gear" << endl;
+    if (!check_engine())
+        return; 
+    if (_speed != 0) {
+        cout << RED ITALIC << "Lower the car's speed at 0 km/h before reverse gear" << RESET << endl;
         return;
     }
     int previousLevel = _gearLevel;
     _gearLevel = -1;
-    cout << "Car's gear down from :" << previousLevel << " to : " << "R" << endl;
+    cout << "Car's gear down from : " << previousLevel << " to " << "R" << endl;
 }
 
-void Car::turn_wheel(int angle) {
-    (void)angle;
+void Car::turn_wheel(unsigned int angle) {
+    if (!check_engine())
+        return; 
+    if (angle > _maxWheelAngle || _wheelAngle + angle > _maxWheelAngle) {
+        cout << "Wheels angle cannot pass " << _maxWheelAngle << "°" << endl;
+        _wheelAngle = _maxWheelAngle;
+    }
+    else
+        _wheelAngle+= angle;
+    cout << "Wheels current angle position : " << PURPLE <<  _wheelAngle << RESET << "°" << endl; 
 }
 void Car::straighten_wheels() {
-    _angle = 0;
-    cout << "Current car's wheels angle : " << _angle << "°" << endl;
+    if (!check_engine())
+        return; 
+    _wheelAngle = 0;
+    cout << "Car's current wheels angle : " << PURPLE << _wheelAngle << RESET << "°" << endl;
 }
 
-void Car::apply_force_on_brakes(int force) {
+void Car::apply_force_on_brakes(unsigned int force) {
+    if (!check_engine())
+        return; 
     switch (force)
     {
     case 1:
-        cout << "very light force applied" << endl;
-        _speed =- 5;
+        cout << LIGHTYELLOW << "Very light " << BRAKE_FORCE << RESET << endl;
+        _speed -= 5;
         break;
     case 2:
-        cout << "light force applied" << endl;
-        _speed =- 15;
+        cout << YELLOW << "Light " << BRAKE_FORCE << RESET << endl;
+        _speed -= 15;
         break;
     case 3:
-        cout << "medium force applied" << endl;
-        _speed =- 25;
+        cout << ORANGE << "Medium " << BRAKE_FORCE << RESET << endl;
+        _speed -= 25;
         break;
     case 4:
-        cout << "hard force applied" << endl;
-        _speed =- 50;
+        cout << DARKORANGE << "Hard " << BRAKE_FORCE << RESET << endl;
+        _speed -= 50;
         break;
     case 5:
-        cout << "maximum force applied" << endl;
+        cout << BOLD RED << "Maximum " << BRAKE_FORCE << RESET << endl;
         _speed = 0;
         break;
     default:
-        cout << "Unknown force applied" << endl;
+        cout << "Unknown " << BRAKE_FORCE << " , nothing happened" << endl;
         break;
     }
-    cout << "Current car's speed : " << _speed << "km/h" << endl;
+    cout << "Car's speed decreased to : " << RED << _speed << RESET << " km/h" << endl;
+    if (_speed == 0) {
+        if (_gearLevel == -1)
+            return;
+        _gearLevel = 0;
+    }
 }
 
 void Car::apply_emergency_brakes() {
+    if (!check_engine())
+        return; 
     _speed = 0;
     _gearLevel = 0;
+    _wheelAngle = 0;
 
-    cout << "Emergency brakes" << endl;
-    cout << "Current car's speed : " << _speed << "km/h" << endl;
-    cout << "Current car's gear level : " << _gearLevel << endl;
-    straighten_wheels();
+    cout << ITALIC BOLD RED << "Emergency brakes !!!" << RESET << endl;
+    cout << "Car's current speed : " << RED << _speed << RESET << " km/h" << endl;
+    cout << "Car's current gear level : " << _gearLevel << endl;
+    cout << "Wheels current angle position : " << PURPLE << _wheelAngle << RESET << "°" << endl;
+}
+
+bool Car::check_engine() {
+    if (_running == false) {
+        cout << RED << "Car engine is not running" << RESET << endl;
+        return false;
+    }
+    return true;
 }
 
 #endif
